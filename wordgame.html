@@ -1,0 +1,62 @@
+<!<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Word Game</title>
+  </head>
+  <body>
+
+    <h2>Word Game<h2>
+    <input type="text" id="secret_word" value="omopko"/>
+    <br/>
+    <input type="text" id="guessing_word" value=""/>
+    <button type="button" id="hint_button" onclick="guess()">guess</button>
+
+    <h3 id='hint'></h3>
+  </body>
+</html>
+
+<script type="text/javascript">
+  function guess(){
+
+    var secret_word = document.getElementById('secret_word').value;
+    var guessing_word = document.getElementById('guessing_word').value;
+
+    var whites=0,blacks=0;
+    var word_length = secret_word.length;
+    var secret_word_copy=secret_word.split('');
+    var guess_word_copy = guessing_word.split('')
+    // var copy2=secret_word;
+
+    for(var i=0; i<word_length; i++){
+        if(guess_word_copy[i]==secret_word_copy[i]){
+          whites +=1
+          secret_word_copy[i]='+';
+          guess_word_copy[i]='*';
+        }
+    }
+
+
+    for (var i = 0; i < word_length; i++) {
+        for (var j = 0; j < word_length; j++) {
+            if(j!=i){
+              if(guess_word_copy[i]==secret_word_copy[j]){
+                blacks +=1;
+                secret_word_copy[j]='+';
+                break;
+              }
+            }
+        }
+    }
+
+    // console.log(whites);
+    // console.log(blacks);
+    // console.log(secret_word_copy);
+    // console.log(guess_word_copy);
+    if(whites||blacks)
+      document.getElementById('hint').innerHTML = whites+'W '+blacks+'B '
+    else
+      document.getElementById('hint').innerHTML = 'Nill'
+  }
+</script>
